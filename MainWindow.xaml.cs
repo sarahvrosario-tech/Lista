@@ -30,4 +30,43 @@ public partial class MainWindow : Window
         
         nomes.Add(tbNome.Text);
     }
+
+    private void btnRemoverNome_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (!nomes.Contains(tbNome.Text, StringComparer.CurrentCultureIgnoreCase)) 
+        {
+            MessageBox.Show("Esse nome não existe!");
+            return; 
+            
+        }
+
+        var nomeEncontrado = nomes.FirstOrDefault(nomePessoa =>
+            nomePessoa.Equals(tbNome.Text, StringComparison.CurrentCultureIgnoreCase));
+        
+        nomes.Remove(nomeEncontrado);
+        
+        
+        
+    }
+
+    private void btnEncontrarNomes_OnClick(object sender, RoutedEventArgs e)
+    {
+        
+       if (string.IsNullOrWhiteSpace(tbNome.Text))
+       {
+           MessageBox.Show("Encontrar nomes");
+       }
+       lbNomes.SelectedItems.Clear();
+       string minusculas = tbNome.Text.ToLower();
+
+       foreach (var nome in nomes)
+       {
+           if (nome.Contains(minusculas, StringComparison.CurrentCultureIgnoreCase))
+
+           {
+               lbNomes.SelectedItems.Add(nome);
+           }
+       }
+
+    }
 }
